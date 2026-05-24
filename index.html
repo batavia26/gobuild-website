@@ -1,298 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>batavia — OpenClaw AI operator</title>
-  <meta name="description" content="batavia is Andi's OpenClaw-powered AI operator with specialized agents for engineering, communications, and financial research.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoBuild Ceramics</title>
+  <meta name="description" content="A handcrafted ceramics landing page featuring the maker and signature pottery pieces." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --surface-2: #101827;
-      --border: #222;
-      --text: #e5e5e5;
-      --muted: #94a3b8;
-      --accent: #60a5fa;
-      --accent-2: #22c55e;
-      --accent-glow: rgba(96, 165, 250, 0.16);
-      --max: 920px;
+      --bg: #f5f0ea;
+      --paper: #fbf8f4;
+      --panel: #efe5d9;
+      --ink: #544438;
+      --muted: #7d6a5b;
+      --accent: #a46f4c;
+      --accent-deep: #7b4f32;
+      --line: rgba(84, 68, 56, 0.14);
+      --shadow: 0 24px 60px rgba(86, 62, 44, 0.12);
+      --max: 1180px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: radial-gradient(circle at top, rgba(96,165,250,0.10), transparent 30%), var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 3rem 1.5rem 4rem;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #f7f2ec 0%, #f2ebe2 100%);
+      color: var(--ink);
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
 
-    .container {
-      max-width: var(--max);
-      margin: 0 auto;
+    .page {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 24px auto 48px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 38px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.7);
+    }
+
+    .brand {
+      text-align: center;
+      flex: 1;
+    }
+
+    .brand .eyebrow,
+    .nav,
+    .small-btn,
+    .stat-label,
+    .tag {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    .brand .eyebrow {
+      color: #b39a84;
+      margin-bottom: 4px;
+    }
+
+    .brand h1,
+    .hero-copy h2,
+    .section-title,
+    .feature-card h3,
+    .owner-copy h3,
+    .visit-copy h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin: 0;
+    }
+
+    .brand h1 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: #b49a80;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      flex-wrap: wrap;
+      background: rgba(255,255,255,0.82);
+    }
+
+    .small-btn,
+    .cta {
+      border: 1px solid rgba(164,111,76,0.35);
+      color: var(--accent-deep);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .small-btn {
+      padding: 12px 14px;
+      white-space: nowrap;
     }
 
     .hero {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .emoji {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin-bottom: 0.75rem;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .lead {
-      max-width: 740px;
-      margin: 0 auto;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 1.05rem;
-    }
-
-    .pill-row {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .pill {
-      border: 1px solid rgba(96,165,250,0.25);
-      background: rgba(96,165,250,0.08);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 0.55rem 0.9rem;
-      font-size: 0.85rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-top: 1.25rem;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.01), 0 12px 40px rgba(0,0,0,0.2);
-    }
-
-    .section h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .section p, .section li {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.96rem;
-    }
-
-    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
+      grid-template-columns: 0.95fr 1.45fr;
+      min-height: 560px;
     }
 
-    .card {
-      background: linear-gradient(180deg, rgba(96,165,250,0.06), rgba(255,255,255,0.01));
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-    }
-
-    .card strong {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 0.4rem;
-      color: var(--text);
-      font-size: 0.98rem;
-    }
-
-    .kpis {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .kpi {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .kpi .num {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
-    .projects .card {
+    .hero-copy {
+      padding: 72px 48px 60px;
+      background: linear-gradient(180deg, #f7f2ed 0%, #f0e6d9 100%);
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      justify-content: center;
     }
 
-    .status {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.55rem;
-      margin-top: 2rem;
+    .hero-copy .kicker {
+      color: var(--accent);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h2 {
+      font-size: clamp(3rem, 5vw, 4.6rem);
+      line-height: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy p,
+    .intro p,
+    .feature-card p,
+    .owner-copy p,
+    .visit-copy p,
+    .footer-note {
       color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      line-height: 1.7;
+      font-size: 1rem;
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-2);
-      box-shadow: 0 0 14px rgba(34,197,94,0.7);
+    .cta {
+      align-self: flex-start;
+      margin-top: 24px;
+      padding: 14px 20px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      background: rgba(164,111,76,0.08);
     }
 
-    .footer-links {
+    .hero-media {
+      position: relative;
+      overflow: hidden;
+      background: #ddd0c1;
+    }
+
+    .hero-media img {
+      object-position: center 30%;
+      filter: saturate(0.95) contrast(1.02);
+      transform: scale(1.05);
+    }
+
+    .hero-badge {
+      position: absolute;
+      right: 28px;
+      bottom: 28px;
+      background: rgba(251,248,244,0.92);
+      padding: 16px 18px;
+      border: 1px solid rgba(84,68,56,0.12);
+      min-width: 180px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 72px 24px 64px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-title {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      max-width: 760px;
+      margin: 0 auto 18px;
+      line-height: 1.08;
+    }
+
+    .intro p {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .features,
+    .visit {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-card,
+    .visit-copy {
+      background: #f4ece3;
+      padding: 0 0 34px;
+    }
+
+    .feature-image,
+    .owner-image,
+    .visit-image,
+    .gallery-card {
+      min-height: 320px;
+      overflow: hidden;
+    }
+
+    .feature-card .content,
+    .visit-copy .content {
+      padding: 28px 30px 0;
+    }
+
+    .feature-card h3,
+    .owner-copy h3,
+    .visit-copy h3 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .owner {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 0;
+      background: #faf6f1;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .owner-copy {
+      padding: 56px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .stat {
+      padding: 18px 16px;
+      background: var(--panel);
+      border: 1px solid rgba(84,68,56,0.08);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    .stat-label { color: var(--muted); }
+
+    .gallery {
+      padding: 56px 38px 70px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr 0.9fr;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .gallery-card {
+      position: relative;
+      background: #e4d6c4;
+    }
+
+    .gallery-card.large { min-height: 420px; }
+    .gallery-card.medium { min-height: 420px; }
+    .gallery-card.stack { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; background: transparent; }
+    .gallery-card.stack .mini { min-height: 201px; overflow: hidden; background: #ebdfd1; }
+
+    .overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 22px;
+      background: linear-gradient(180deg, transparent, rgba(59,38,25,0.65));
+      color: #fff;
+    }
+
+    .overlay strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .visit-copy {
       display: flex;
       justify-content: center;
-      gap: 1.25rem;
+      flex-direction: column;
+    }
+
+    footer {
+      padding: 26px 38px 34px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
       flex-wrap: wrap;
-      margin-top: 1.25rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      align-items: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .features,
+      .owner,
+      .visit,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-card.stack { grid-template-rows: repeat(2, minmax(220px, 1fr)); }
+      .topbar { gap: 16px; }
+      .brand { order: -1; }
     }
 
     @media (max-width: 640px) {
-      body { padding: 2rem 1rem 3rem; }
-      .section { padding: 1.2rem; }
+      .page { width: min(calc(100% - 16px), var(--max)); margin: 8px auto 24px; }
+      .topbar,
+      .gallery,
+      footer { padding-left: 20px; padding-right: 20px; }
+      .hero-copy,
+      .owner-copy { padding: 38px 24px; }
+      .feature-card .content,
+      .visit-copy .content { padding: 22px 22px 0; }
+      .stats { grid-template-columns: 1fr; }
+      .nav { gap: 16px; font-size: 0.65rem; }
+      .hero-copy h2 { font-size: 2.6rem; }
     }
   </style>
 </head>
 <body>
-  <main class="container">
-    <section class="hero">
-      <span class="emoji">👽</span>
-      <h1>batavia</h1>
-      <p class="lead">
-        Andi's OpenClaw-powered AI operator: a direct, always-on assistant with a small specialist team for software,
-        communications, and financial research.
-      </p>
-      <div class="pill-row">
-        <span class="pill">OpenClaw runtime</span>
-        <span class="pill">ChatGPT 5.4 + Claude 4.6</span>
-        <span class="pill">Discord + Telegram</span>
-        <span class="pill">Static site</span>
+  <div class="page">
+    <header>
+      <div class="topbar">
+        <div></div>
+        <div class="brand">
+          <div class="eyebrow">Contemporary Studio Pottery</div>
+          <h1>GoBuild Ceramics</h1>
+        </div>
+        <a class="small-btn" href="#contact">Commission a Piece</a>
+      </div>
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#collection">Collection</a>
+        <a href="#maker">Maker</a>
+        <a href="#visit">Visit</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="kicker">Handmade pottery from Indonesia</div>
+        <h2>Warm forms, quiet craft, everyday beauty.</h2>
+        <p>
+          GoBuild Ceramics creates small-batch pottery with a calm, tactile character — pieces made to feel personal,
+          useful, and lasting in the home.
+        </p>
+        <a class="cta" href="#collection">View signature piece</a>
+      </div>
+      <div class="hero-media">
+        <img src="assets/pottery.jpg" alt="Signature handcrafted pottery piece" />
+        <div class="hero-badge">
+          <strong>Small Batch</strong>
+          <span>Hand-finished ceramics with a one-of-a-kind presence.</span>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>What this is</h2>
+    <section class="intro">
+      <h2 class="section-title">Championing thoughtful pottery made by hand, with character in every curve.</h2>
       <p>
-        batavia is the main operator in a personal OpenClaw setup. The system is designed to do real work — not just chat —
-        with agent roles split by specialty so coding, communications, and finance tasks can be handled by the right model.
+        Inspired by the editorial feel of classic ceramic galleries, this page presents the work as collectible yet warm:
+        a maker-led studio, a focused collection, and objects designed to bring texture and personality into daily life.
       </p>
     </section>
 
-    <section class="section">
-      <h2>Current team</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>batavia 👽</strong>
-          <p>Main assistant and coordinator. Handles general tasks, routing, context, and day-to-day operations.</p>
+    <section class="features" id="collection">
+      <article class="feature-card">
+        <div class="feature-image">
+          <img src="assets/pottery.jpg" alt="Red ceramic vessel with wood-pattern lid and handle" />
         </div>
-        <div class="card">
-          <strong>codie 🛠️</strong>
-          <p>Software engineer for writing code, debugging, Git/GitHub workflows, deployment, and DevOps.</p>
+        <div class="content">
+          <span class="tag">Shop by piece</span>
+          <h3>Signature Vessel</h3>
+          <p>
+            A playful red ceramic body paired with a sculptural wood-grain lid and arched handle. Strong silhouette,
+            crafted finish, and a distinct handmade charm.
+          </p>
         </div>
-        <div class="card">
-          <strong>commie 📣</strong>
-          <p>Campaign, marketing, and communications specialist for messaging, positioning, and audience-facing content.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-image">
+          <img src="assets/owner.jpg" alt="Portrait of the ceramic maker" />
         </div>
-        <div class="card">
-          <strong>finnie 📈</strong>
-          <p>Financial research specialist for US stocks, market analysis, and micro/macro economic work.</p>
+        <div class="content">
+          <span class="tag">Shop by maker</span>
+          <h3>Meet the Owner</h3>
+          <p>
+            The studio is led by an independent maker with a quiet, modern aesthetic — focused on simple forms, good
+            proportions, and pieces that still feel human.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="owner" id="maker">
+      <div class="owner-copy">
+        <span class="tag">Maker profile</span>
+        <h3>Built around craft, patience, and a clear point of view.</h3>
+        <p>
+          GoBuild Ceramics is presented as a personal studio brand: intimate, detail-driven, and rooted in handmade work.
+          The portrait gives the page a real owner behind the objects, while the warm palette echoes clay, glaze, and kiln heat.
+        </p>
+        <div class="stats">
+          <div class="stat">
+            <strong>100%</strong>
+            <span class="stat-label">handmade feel</span>
+          </div>
+          <div class="stat">
+            <strong>1</strong>
+            <span class="stat-label">studio owner</span>
+          </div>
+          <div class="stat">
+            <strong>∞</strong>
+            <span class="stat-label">subtle variation</span>
+          </div>
         </div>
       </div>
-      <div class="kpis">
-        <div class="kpi"><span class="num">4</span><span>active agents</span></div>
-        <div class="kpi"><span class="num">2</span><span>live chat channels</span></div>
-        <div class="kpi"><span class="num">24/7</span><span>operator model</span></div>
+      <div class="owner-image">
+        <img src="assets/owner.jpg" alt="Owner of GoBuild Ceramics" />
       </div>
     </section>
 
-    <section class="section">
-      <h2>Runtime stack</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>Main</strong>
-          <p>batavia runs on ChatGPT 5.4 for general coordination and daily assistant work.</p>
+    <section class="gallery" id="visit">
+      <span class="tag">Studio moments</span>
+      <h2 class="section-title">A single-page showroom with the same calm, curated feel as the reference site.</h2>
+      <div class="gallery-grid">
+        <div class="gallery-card large">
+          <img src="assets/pottery.jpg" alt="Hero pottery detail" />
+          <div class="overlay">
+            <strong>Collector Appeal</strong>
+            <span>Statement pottery designed to stand out in a shelf, table, or gifting set.</span>
+          </div>
         </div>
-        <div class="card">
-          <strong>Specialists</strong>
-          <p>Claude Opus 4.6 powers codie and finnie, while Claude Sonnet 4.6 powers commie.</p>
+        <div class="gallery-card medium">
+          <img src="assets/owner.jpg" alt="Maker portrait detail" />
+          <div class="overlay">
+            <strong>Personal Studio</strong>
+            <span>Real maker, real process, and a more intimate brand story.</span>
+          </div>
         </div>
-        <div class="card">
-          <strong>Channels</strong>
-          <p>OpenClaw is live on Telegram and Discord, with browser, GitHub, and web tooling available.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section projects">
-      <h2>Projects</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>BudgetBuddy</strong>
-          <p>Personal budget tracking app with charts, categories, and spending insights.</p>
-          <a href="https://budgetbuddy-nu-blush.vercel.app/" target="_blank" rel="noreferrer">View project →</a>
-        </div>
-        <div class="card">
-          <strong>PlantBook</strong>
-          <p>Plant identification and field guide app with AI-assisted recognition and discovery workflows.</p>
-          <a href="https://plantbook-psi.vercel.app/" target="_blank" rel="noreferrer">View project →</a>
+        <div class="gallery-card stack">
+          <div class="mini"><img src="assets/pottery.jpg" alt="Pottery close-up" /></div>
+          <div class="mini"><img src="assets/reference-layout.jpg" alt="Reference layout inspiration" /></div>
         </div>
       </div>
     </section>
 
-    <div class="status">
-      <span class="dot"></span>
-      <span>OpenClaw live • batavia + specialist team online</span>
-    </div>
+    <section class="visit">
+      <div class="visit-image">
+        <img src="assets/reference-layout.jpg" alt="Reference ceramic gallery page layout" />
+      </div>
+      <div class="visit-copy" id="contact">
+        <div class="content">
+          <span class="tag">Design direction</span>
+          <h3>Styled after the sample page, but tailored to your friend and his work.</h3>
+          <p>
+            This single webpage keeps the elegant gallery rhythm from the reference image: editorial typography, soft neutral blocks,
+            large photography, and a premium handcrafted mood. It is ready to publish as a simple static landing page on the existing repo.
+          </p>
+          <a class="cta" href="mailto:hello@gobuildceramics.com">Contact the Studio</a>
+        </div>
+      </div>
+    </section>
 
-    <div class="footer-links">
-      <a href="https://github.com/batavia26" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="https://openclaw.ai" target="_blank" rel="noreferrer">OpenClaw</a>
-      <a href="https://github.com/batavia26/gobuild-website" target="_blank" rel="noreferrer">Repo</a>
-    </div>
-  </main>
+    <footer>
+      <div>GoBuild Ceramics — handcrafted pottery with a modern gallery feel.</div>
+      <div class="footer-note">Single static webpage built from your 3 reference images.</div>
+    </footer>
+  </div>
 </body>
 </html>
