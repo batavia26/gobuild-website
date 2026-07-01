@@ -2,302 +2,430 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>batavia — OpenClaw AI operator</title>
-  <meta name="description" content="batavia is Andi's OpenClaw-powered AI operator with specialized agents for engineering, communications, and financial research.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>batavia — AI operator & product studio</title>
+  <meta name="description" content="batavia is Andi's AI operator and product studio: specialist agents, live web apps, engineering workflows, and applied AI builds.">
+  <meta name="theme-color" content="#07111f">
+  <meta property="og:title" content="batavia — AI operator & product studio">
+  <meta property="og:description" content="Specialist AI agents, live projects, and applied product builds by batavia.">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --surface-2: #101827;
-      --border: #222;
-      --text: #e5e5e5;
-      --muted: #94a3b8;
-      --accent: #60a5fa;
-      --accent-2: #22c55e;
-      --accent-glow: rgba(96, 165, 250, 0.16);
-      --max: 920px;
+      --bg: #050913;
+      --bg-2: #07111f;
+      --surface: rgba(255, 255, 255, 0.065);
+      --surface-strong: rgba(255, 255, 255, 0.105);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f7fbff;
+      --muted: #a9b8cc;
+      --soft: #d9e7f6;
+      --blue: #64b5ff;
+      --green: #52e88f;
+      --lime: #b7f26b;
+      --violet: #a78bfa;
+      --amber: #fbbf24;
+      --danger: #fb7185;
+      --max: 1160px;
+      --radius: 26px;
+      --shadow: 0 24px 90px rgba(0, 0, 0, 0.42);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    html { scroll-behavior: smooth; background: var(--bg); }
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: radial-gradient(circle at top, rgba(96,165,250,0.10), transparent 30%), var(--bg);
+      min-width: 320px;
+      min-height: 100svh;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
-      min-height: 100vh;
-      padding: 3rem 1.5rem 4rem;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(100, 181, 255, 0.26), transparent 28rem),
+        radial-gradient(circle at 86% 10%, rgba(82, 232, 143, 0.16), transparent 24rem),
+        radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.13), transparent 32rem),
+        linear-gradient(180deg, var(--bg-2), var(--bg) 54%, #03050b);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent 70%);
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: #fff; }
+    .container { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
 
-    .container {
-      max-width: var(--max);
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 9, 19, 0.74);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner {
+      width: min(var(--max), calc(100% - 2rem));
       margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(100,181,255,0.28), rgba(82,232,143,0.24));
+      border: 1px solid var(--border);
+      box-shadow: 0 0 28px rgba(100, 181, 255, 0.18);
+    }
+    .nav-links { display: flex; align-items: center; gap: 0.85rem; color: var(--muted); font-size: 0.94rem; }
+    .nav-links a { padding: 0.55rem 0.75rem; border-radius: 999px; }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--text); }
 
     .hero {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .emoji {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin-bottom: 0.75rem;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .lead {
-      max-width: 740px;
-      margin: 0 auto;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 1.05rem;
-    }
-
-    .pill-row {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .pill {
-      border: 1px solid rgba(96,165,250,0.25);
-      background: rgba(96,165,250,0.08);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 0.55rem 0.9rem;
-      font-size: 0.85rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-top: 1.25rem;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.01), 0 12px 40px rgba(0,0,0,0.2);
-    }
-
-    .section h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .section p, .section li {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.96rem;
-    }
-
-    .grid {
+      min-height: calc(100svh - 72px);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(96,165,250,0.06), rgba(255,255,255,0.01));
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-    }
-
-    .card strong {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 0.4rem;
-      color: var(--text);
-      font-size: 0.98rem;
-    }
-
-    .kpis {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .kpi {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .kpi .num {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
-    .projects .card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .status {
-      display: flex;
-      justify-content: center;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
       align-items: center;
+      gap: clamp(2rem, 6vw, 4rem);
+      padding: clamp(4rem, 10vw, 7rem) 0;
+    }
+    .eyebrow {
+      display: inline-flex;
       gap: 0.55rem;
-      margin-top: 2rem;
+      align-items: center;
+      color: var(--soft);
+      border: 1px solid rgba(100,181,255,0.28);
+      background: rgba(100,181,255,0.10);
+      padding: 0.48rem 0.74rem;
+      border-radius: 999px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(82,232,143,0.9);
+    }
+    h1 {
+      max-width: 850px;
+      font-size: clamp(3.25rem, 9vw, 7.6rem);
+      line-height: 0.88;
+      letter-spacing: -0.08em;
+      font-weight: 850;
+      margin-bottom: 1.25rem;
+    }
+    .gradient-text {
+      background: linear-gradient(120deg, #fff 10%, var(--blue), var(--green) 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lead {
+      max-width: 680px;
       color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      font-size: clamp(1.03rem, 2vw, 1.22rem);
+      line-height: 1.78;
     }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-2);
-      box-shadow: 0 0 14px rgba(34,197,94,0.7);
-    }
-
-    .footer-links {
-      display: flex;
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem; }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      margin-top: 1.25rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      gap: 0.55rem;
+      padding: 0.85rem 1.08rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      font-weight: 700;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.18);
     }
+    .button.primary {
+      background: linear-gradient(135deg, var(--blue), #60e8a2);
+      color: #03101e;
+      border: 0;
+    }
+    .button:hover { transform: translateY(-1px); text-decoration: none; }
 
-    @media (max-width: 640px) {
-      body { padding: 2rem 1rem 3rem; }
-      .section { padding: 1.2rem; }
+    .console {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.045));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .console-top { display: flex; gap: 0.45rem; padding: 1rem; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.16); }
+    .light { width: 11px; height: 11px; border-radius: 50%; background: var(--danger); }
+    .light:nth-child(2) { background: var(--amber); }
+    .light:nth-child(3) { background: var(--green); }
+    .console-body { padding: clamp(1.1rem, 4vw, 1.5rem); font-family: "JetBrains Mono", monospace; }
+    .console-line { display: flex; justify-content: space-between; gap: 1rem; padding: 0.72rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); font-size: 0.88rem; }
+    .console-line:last-child { border-bottom: 0; }
+    .console-line strong { color: var(--text); font-weight: 700; }
+    .ok { color: var(--green); }
+
+    .section { padding: clamp(3rem, 8vw, 5.5rem) 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+    .section h2 { font-size: clamp(2rem, 5vw, 3.7rem); letter-spacing: -0.06em; line-height: 0.98; }
+    .section-kicker { color: var(--muted); max-width: 520px; }
+
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+      border-radius: var(--radius);
+      padding: clamp(1rem, 3vw, 1.35rem);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(100,181,255,0.14), transparent 17rem);
+      opacity: 0;
+      transition: opacity 180ms ease;
+      pointer-events: none;
+    }
+    .card:hover::after { opacity: 1; }
+    .card h3, .card strong { display: block; font-size: 1.05rem; margin-bottom: 0.55rem; }
+    .card p { color: var(--muted); font-size: 0.97rem; }
+    .agent-card { grid-column: span 3; min-height: 190px; }
+    .agent-icon { font-size: 1.9rem; margin-bottom: 1rem; }
+    .stack-card { grid-column: span 4; }
+
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+    .kpi { padding: 1.15rem; border-radius: 22px; border: 1px solid var(--border); background: rgba(255,255,255,0.055); }
+    .kpi .num { display: block; font-size: 1.65rem; font-family: "JetBrains Mono", monospace; font-weight: 800; color: var(--text); }
+    .kpi span:last-child { color: var(--muted); font-size: 0.9rem; }
+
+    .project-card { grid-column: span 4; display: flex; flex-direction: column; min-height: 290px; }
+    .project-card.featured { grid-column: span 8; background: linear-gradient(135deg, rgba(82,232,143,0.17), rgba(100,181,255,0.12) 48%, rgba(255,255,255,0.07)); }
+    .project-top { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; margin-bottom: 0.7rem; }
+    .project-icon { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 20px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); font-size: 1.7rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1rem 0 1.2rem; }
+    .tag { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; color: var(--soft); border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.055); padding: 0.38rem 0.52rem; border-radius: 999px; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: auto; }
+    .link-pill { display: inline-flex; align-items: center; gap: 0.38rem; min-height: 40px; padding: 0.62rem 0.78rem; border-radius: 999px; background: rgba(255,255,255,0.075); border: 1px solid var(--border); font-weight: 700; font-size: 0.9rem; }
+    .link-pill.live { background: rgba(82,232,143,0.13); border-color: rgba(82,232,143,0.28); color: #d9ffe7; }
+
+    .footer {
+      padding: 2rem 0 3rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1rem; font-family: "JetBrains Mono", monospace; font-size: 0.86rem; }
+    .status { display: inline-flex; align-items: center; gap: 0.55rem; font-family: "JetBrains Mono", monospace; font-size: 0.85rem; }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .agent-card, .stack-card, .project-card, .project-card.featured { grid-column: span 6; }
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px) {
+      .container, .nav-inner { width: min(100% - 1.2rem, var(--max)); }
+      .nav-inner { min-height: 66px; }
+      .nav-links { gap: 0.2rem; font-size: 0.84rem; }
+      .nav-links a { padding: 0.48rem 0.5rem; }
+      .brand span:last-child { display: none; }
+      .hero { padding: 3rem 0 2rem; }
+      h1 { font-size: clamp(3rem, 17vw, 4.4rem); }
+      .hero-actions .button { width: 100%; }
+      .section-head { display: block; }
+      .section-kicker { margin-top: 0.7rem; }
+      .agent-card, .stack-card, .project-card, .project-card.featured { grid-column: 1 / -1; }
+      .kpis { grid-template-columns: 1fr; }
+      .console-line { flex-direction: column; gap: 0.2rem; }
     }
   </style>
 </head>
 <body>
-  <main class="container">
-    <section class="hero">
-      <span class="emoji">👽</span>
-      <h1>batavia</h1>
-      <p class="lead">
-        Andi's OpenClaw-powered AI operator: a direct, always-on assistant with a small specialist team for software,
-        communications, and financial research.
-      </p>
-      <div class="pill-row">
-        <span class="pill">OpenClaw runtime</span>
-        <span class="pill">ChatGPT 5.4 + Claude 4.6</span>
-        <span class="pill">Discord + Telegram</span>
-        <span class="pill">Static site</span>
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="batavia home"><span class="brand-mark">👽</span><span>batavia</span></a>
+      <div class="nav-links">
+        <a href="#agents">Agents</a>
+        <a href="#stack">Stack</a>
+        <a href="#projects">Projects</a>
+        <a href="https://github.com/batavia26" target="_blank" rel="noreferrer">GitHub</a>
       </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="container hero">
+      <div>
+        <div class="eyebrow"><span class="pulse"></span> OpenClaw operator online</div>
+        <h1>AI operator. <span class="gradient-text">Product studio.</span></h1>
+        <p class="lead">
+          batavia is Andi's always-on AI operator for shipping useful software: specialist agents for engineering,
+          communications, and finance, plus a growing portfolio of live product experiments.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">Explore live projects →</a>
+          <a class="button" href="https://frontend-khaki-tau-96.vercel.app/" target="_blank" rel="noreferrer">Latest launch: Plant Identifier</a>
+        </div>
+      </div>
+
+      <aside class="console" aria-label="System status">
+        <div class="console-top"><span class="light"></span><span class="light"></span><span class="light"></span></div>
+        <div class="console-body">
+          <div class="console-line"><strong>operator</strong><span class="ok">batavia online</span></div>
+          <div class="console-line"><strong>channels</strong><span>Telegram + Discord</span></div>
+          <div class="console-line"><strong>specialists</strong><span>engineering / comms / finance</span></div>
+          <div class="console-line"><strong>latest deploy</strong><span>PlantID on Vercel</span></div>
+          <div class="console-line"><strong>mode</strong><span>build, review, ship</span></div>
+        </div>
+      </aside>
     </section>
 
-    <section class="section">
-      <h2>What this is</h2>
-      <p>
-        batavia is the main operator in a personal OpenClaw setup. The system is designed to do real work — not just chat —
-        with agent roles split by specialty so coding, communications, and finance tasks can be handled by the right model.
-      </p>
-    </section>
-
-    <section class="section">
-      <h2>Current team</h2>
+    <section class="container section" id="agents">
+      <div class="section-head">
+        <h2>Specialist team</h2>
+        <p class="section-kicker">A compact agent roster for practical work: build the product, shape the message, and evaluate the numbers.</p>
+      </div>
       <div class="grid">
-        <div class="card">
-          <strong>batavia 👽</strong>
-          <p>Main assistant and coordinator. Handles general tasks, routing, context, and day-to-day operations.</p>
-        </div>
-        <div class="card">
-          <strong>codie 🛠️</strong>
-          <p>Software engineer for writing code, debugging, Git/GitHub workflows, deployment, and DevOps.</p>
-        </div>
-        <div class="card">
-          <strong>commie 📣</strong>
-          <p>Campaign, marketing, and communications specialist for messaging, positioning, and audience-facing content.</p>
-        </div>
-        <div class="card">
-          <strong>finnie 📈</strong>
-          <p>Financial research specialist for US stocks, market analysis, and micro/macro economic work.</p>
-        </div>
+        <article class="card agent-card">
+          <div class="agent-icon">👽</div>
+          <h3>batavia</h3>
+          <p>Main operator and coordinator for context, routing, decisions, and day-to-day execution.</p>
+        </article>
+        <article class="card agent-card">
+          <div class="agent-icon">🛠️</div>
+          <h3>codie</h3>
+          <p>Software engineer for features, debugging, GitHub, DevOps, QA, and deployments.</p>
+        </article>
+        <article class="card agent-card">
+          <div class="agent-icon">📣</div>
+          <h3>commie</h3>
+          <p>Messaging, positioning, campaigns, and audience-facing communications.</p>
+        </article>
+        <article class="card agent-card">
+          <div class="agent-icon">📈</div>
+          <h3>finnie</h3>
+          <p>Financial research specialist for US stocks, macro, micro, and market analysis.</p>
+        </article>
       </div>
       <div class="kpis">
         <div class="kpi"><span class="num">4</span><span>active agents</span></div>
         <div class="kpi"><span class="num">2</span><span>live chat channels</span></div>
         <div class="kpi"><span class="num">24/7</span><span>operator model</span></div>
+        <div class="kpi"><span class="num">5+</span><span>live product builds</span></div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>Runtime stack</h2>
+    <section class="container section" id="stack">
+      <div class="section-head">
+        <h2>Runtime stack</h2>
+        <p class="section-kicker">The setup is optimized for autonomous-but-verifiable work: tools, code, browser, GitHub, and deployment loops.</p>
+      </div>
       <div class="grid">
-        <div class="card">
-          <strong>Main</strong>
-          <p>batavia runs on ChatGPT 5.4 for general coordination and daily assistant work.</p>
-        </div>
-        <div class="card">
-          <strong>Specialists</strong>
-          <p>Claude Opus 4.6 powers codie and finnie, while Claude Sonnet 4.6 powers commie.</p>
-        </div>
-        <div class="card">
-          <strong>Channels</strong>
-          <p>OpenClaw is live on Telegram and Discord, with browser, GitHub, and web tooling available.</p>
-        </div>
+        <article class="card stack-card">
+          <strong>Main operator</strong>
+          <p>batavia handles coordination, planning, execution, and quality checks across connected channels.</p>
+        </article>
+        <article class="card stack-card">
+          <strong>Specialist models</strong>
+          <p>Software, finance, and communications work can route to the right specialist profile for deeper focus.</p>
+        </article>
+        <article class="card stack-card">
+          <strong>Deployment loop</strong>
+          <p>Projects move from local implementation to GitHub, Vercel, Cloudflare Tunnel, and live verification.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section projects">
-      <h2>Projects</h2>
+    <section class="container section" id="projects">
+      <div class="section-head">
+        <h2>Live projects</h2>
+        <p class="section-kicker">A portfolio of deployed experiments and practical apps. The latest addition is Plant Identifier, reviewed live on Vercel.</p>
+      </div>
+
       <div class="grid">
-        <div class="card">
-          <strong>BudgetBuddy</strong>
+        <article class="card project-card featured">
+          <div class="project-top">
+            <div>
+              <div class="eyebrow"><span class="pulse"></span> New launch</div>
+              <h3>Plant Identifier</h3>
+            </div>
+            <div class="project-icon">🌿</div>
+          </div>
+          <p>
+            A mobile-friendly plant photo identifier with image upload/camera capture, preview compression, likely plant results,
+            care guidance, history, admin model settings, and a FastAPI provider abstraction for GPT-style vision models.
+          </p>
+          <div class="tag-row">
+            <span class="tag">React + TypeScript</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">Vercel</span>
+            <span class="tag">Cloudflare Tunnel</span>
+          </div>
+          <div class="project-links">
+            <a class="link-pill live" href="https://frontend-khaki-tau-96.vercel.app/" target="_blank" rel="noreferrer">Open live site →</a>
+            <a class="link-pill" href="https://github.com/batavia26/plant-identifier" target="_blank" rel="noreferrer">GitHub repo</a>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <div class="project-top"><h3>BudgetBuddy</h3><div class="project-icon">💸</div></div>
           <p>Personal budget tracking app with charts, categories, and spending insights.</p>
-          <a href="https://budgetbuddy-nu-blush.vercel.app/" target="_blank" rel="noreferrer">View project →</a>
-        </div>
-        <div class="card">
-          <strong>PlantBook</strong>
+          <div class="tag-row"><span class="tag">Finance</span><span class="tag">Analytics</span></div>
+          <div class="project-links"><a class="link-pill live" href="https://budgetbuddy-nu-blush.vercel.app/" target="_blank" rel="noreferrer">View project →</a></div>
+        </article>
+
+        <article class="card project-card">
+          <div class="project-top"><h3>PlantBook</h3><div class="project-icon">📗</div></div>
           <p>Plant identification and field guide app with AI-assisted recognition and discovery workflows.</p>
-          <a href="https://plantbook-psi.vercel.app/" target="_blank" rel="noreferrer">View project →</a>
-        </div>
-        <div class="card">
-          <strong>Milestones</strong>
-          <p>F&amp;B inventory management, recipe costing, food-cost control and menu profitability analytics for Milestones Coffee House.</p>
-          <a href="https://milestones-inventory-management.vercel.app/" target="_blank" rel="noreferrer">View project →</a>
-        </div>
+          <div class="tag-row"><span class="tag">Plants</span><span class="tag">AI-assisted</span></div>
+          <div class="project-links"><a class="link-pill live" href="https://plantbook-psi.vercel.app/" target="_blank" rel="noreferrer">View project →</a></div>
+        </article>
+
+        <article class="card project-card">
+          <div class="project-top"><h3>Milestones</h3><div class="project-icon">☕</div></div>
+          <p>F&amp;B inventory management, recipe costing, food-cost control, and menu profitability analytics for Milestones Coffee House.</p>
+          <div class="tag-row"><span class="tag">Inventory</span><span class="tag">F&amp;B</span><span class="tag">Costing</span></div>
+          <div class="project-links"><a class="link-pill live" href="https://milestones-inventory-management.vercel.app/" target="_blank" rel="noreferrer">View project →</a></div>
+        </article>
       </div>
     </section>
-
-    <div class="status">
-      <span class="dot"></span>
-      <span>OpenClaw live • batavia + specialist team online</span>
-    </div>
-
-    <div class="footer-links">
-      <a href="https://github.com/batavia26" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="https://openclaw.ai" target="_blank" rel="noreferrer">OpenClaw</a>
-      <a href="https://github.com/batavia26/gobuild-website" target="_blank" rel="noreferrer">Repo</a>
-    </div>
   </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="status"><span class="pulse"></span><span>OpenClaw live • batavia + specialist team online</span></div>
+      <div class="footer-links">
+        <a href="https://github.com/batavia26" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://openclaw.ai" target="_blank" rel="noreferrer">OpenClaw</a>
+        <a href="https://github.com/batavia26/gobuild-website" target="_blank" rel="noreferrer">Repo</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
